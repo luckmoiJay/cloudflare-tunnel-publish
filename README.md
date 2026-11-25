@@ -15,27 +15,17 @@
 ```mermaid
 flowchart TD
     start(["你：幫我把工具開到通道出去<br/>網域 example.com、子網域 demo"]) --> scan
-    scan["第 1 步：掃描電腦現況<br/>已有的 Tunnel、執行中的服務、port、網路"] --> report["整理成現況報告給你看"]
-    report --> net{"網路連得到<br/>Cloudflare 嗎？"}
+    scan["第 1 步：掃描電腦現況<br/>已有的 Tunnel、執行中的服務、port、網路<br/>整理成現況報告給你看"] --> net{"網路連得到<br/>Cloudflare 嗎？"}
     net -->|連不到| netfix["說明原因<br/>建議換網路或找網管"]
     netfix -.->|換好網路後| ask
     net -->|可以| ask["第 2 步：一次問完<br/>要發布什麼、網域、子網域"]
     ask --> existing{"已經有自己的 Tunnel？"}
     existing -->|有，加進去| addto["把新網址加到既有的 Tunnel"]
-    existing -->|沒有，或另建一個| dns["第 3 步：檢查網域在 Cloudflare<br/>子網域還沒被使用"]
-    dns --> what{"要發布什麼？"}
-    what -->|已在跑的工具| tool["第 4 步：確認 port 和連線位址"]
-    what -->|靜態網頁或範例頁| static["第 4 步：建立 site 資料夾<br/>啟動本機網站"]
-    tool --> install["第 5 步：安裝 cloudflared<br/>（已安裝就跳過）"]
-    static --> install
-    install --> login["第 6 步：你本人登入 Cloudflare 並授權<br/>（登入過就跳過）"]
-    login --> create["第 7 步：建立 Tunnel"]
-    create --> route["第 8 步：把子網域指向 Tunnel"]
-    route --> config["第 9 步：寫設定檔並檢查"]
-    config --> run["第 10 步：啟動 Tunnel"]
-    run --> verify["第 11 步：驗證<br/>網址打得開、設定檔沒外流、手機網路也連得到"]
+    existing -->|沒有，或另建一個| prep["第 3～4 步：檢查網域<br/>確認工具的 port，或建立靜態網站"]
+    prep --> setup["第 5～10 步：安裝 cloudflared、你本人登入授權<br/>建立 Tunnel、設定 DNS、寫設定檔、啟動<br/>（已經做過的步驟會跳過）"]
+    setup --> verify["第 11 步：驗證<br/>網址打得開、設定檔沒外流、手機網路也連得到"]
     addto --> verify
-    verify --> auto{"第 12 步：要開機自動啟動嗎？"}
+    verify --> auto{"第 12 步：<br/>要開機自動啟動嗎？"}
     auto -->|登入後啟動（建議）| startup["放進 Windows「啟動」資料夾"]
     auto -->|開機就啟動（進階）| service["安裝成 Windows 服務"]
     auto -->|不用| manual["告訴你怎麼手動開關"]
