@@ -97,6 +97,11 @@ cp -r cloudflare-tunnel-publish/skills/cloudflare-tunnel-publish ~/.claude/skill
 ## 檔案結構
 
 ```text
-skills/cloudflare-tunnel-publish/SKILL.md   Skill 本體
-cloudflare-tunnel-publish.skill             打包好的檔案，給 Claude 網頁版或桌面 App 上傳
+skills/cloudflare-tunnel-publish/SKILL.md                  Skill 本體
+skills/cloudflare-tunnel-publish/references/autostart.md   自動啟動的詳細做法
+cloudflare-tunnel-publish.skill                            打包好的檔案，給 Claude 網頁版或桌面 App 上傳
 ```
+
+## 授權
+
+[MIT License](LICENSE)：可以自由使用、修改和分享，只要保留原本的版權聲明。
